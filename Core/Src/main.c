@@ -41,13 +41,13 @@
 
 #define RCC_APB2ENR  (RCC_BASE_ADDR + RCC_APB2ENR_OFFSET)
 
-#define GPIOA_BASE_ADRR 0x40010800UL
+#define GPIOA_BASE_ADDR 0x40010800UL
 #define GPIOA_CRH_OFFSET    0x04UL
 #define GPIOA_ODR_OFFSET    0X0CUL
 
 
-#define GPIOA_ODR_ADRR 			(GPIOA_BASE_ADRR + GPIOA_ODR_OFFSET)
-#define GPIOA_CRH_ADRR        	(GPIOA_BASE_ADRR + GPIOA_CRH_OFFSET)
+#define GPIOA_ODR_ADDR 			(GPIOA_BASE_ADDR + GPIOA_ODR_OFFSET)
+#define GPIOA_CRH_ADDR        	(GPIOA_BASE_ADDR + GPIOA_CRH_OFFSET)
 
 /* USER CODE END PM */
 
@@ -81,12 +81,12 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-uint32_t *ptrRccApb2Enr= (uint32_t*) RCC_APB2ENR;
+volatile uint32_t *ptrRccApb2Enr = (volatile uint32_t*) RCC_APB2ENR;
 *ptrRccApb2Enr |= (1<<2);
 
-volatile uint32_t *ptrGpioaOdr = (volatile uint32_t *)GPIOA_ODR_ADRR;
+volatile uint32_t *ptrGpioaOdr = (volatile uint32_t *)GPIOA_ODR_ADDR;
 
-uint32_t *ptrGpioaCrh = (uint32_t *)GPIOA_CRH_ADRR;
+volatile uint32_t *ptrGpioaCrh = (volatile uint32_t *)GPIOA_CRH_ADDR;
 *ptrGpioaCrh &= ~(0xF << 0);   // Clear MODE8[1:0] and CNF8[1:0]
 *ptrGpioaCrh |=  (0x2 << 0);   // MODE8 = 10 (Output 2MHz), CNF8 = 00 (Push-pull)
   /* USER CODE END 1 */
